@@ -5,12 +5,14 @@ import axios from "axios";
 import { StyledPokemonPage } from "../styles/styledPokemonPage";
 import { ThemeProvider } from "styled-components";
 import { ThemeContext, light, dark } from "../contexts/theme-context";
+import { ThemeToggler } from "../components/toggleTheme/toggleTheme";
 
 const PokemonPage = () => {
     const location = useLocation();
-    const data = location.state?.data
+    const data = location.state?.data;
     const abilitiesEndpoints = data.abilities.map(ability=>ability.ability.url);
     const [responseData, setResponseData] = useState([]);
+    const [theme, toggleTheme] = useState('dark');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,20 +30,12 @@ const PokemonPage = () => {
       
     const descriptions = responseData.map( e => e.effect_entries[1].effect)
 
-    const { theme, toggleTheme } = useContext(ThemeContext);
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-    
-        if (savedTheme) {
-          toggleTheme(savedTheme);
-        }
-    }, [toggleTheme]);
-
     return (
         <ThemeContext.Provider value={{theme, toggleTheme}}>
-            <ThemeProvider theme={theme === 'light' ? light : dark}>
+            <ThemeProvider theme={theme === 'light' ? light : dark}>     
                 <StyledPokemonPage>
-                    <Link to="/" style={{color: '#61dafb'}}>Voltar para o Menu</Link>
+                    <ThemeToggler/>
+                    <Link to="/" style={{color: '#61dafb', margin: '20px 0px'}}>Voltar para o Menu</Link>
                     <h1>{data.name}</h1>
                     <img className="big-image" src={data?data.sprites.other.showdown.front_default:"<div>Loading...</div>"} alt={data.name}/>
                     <div className="small-images">
@@ -49,8 +43,7 @@ const PokemonPage = () => {
                         <img src={data?data.sprites.back_default:"<div>Loading...</div>"} alt={data.name}/>
                         <img src={data?data.sprites.front_shiny:"<div>Loading...</div>"} alt={data.name}/>
                         <img src={data?data.sprites.back_shiny:"<div>Loading...</div>"} alt={data.name}/>
-                    </div>
-                    
+                    </div>           
                     <div className="types">
                         {data.types.map(types =>(
                             <StyledType key={types.type.name} type={types.type.name}>{types.type.name}</StyledType>
@@ -76,5 +69,3 @@ const PokemonPage = () => {
     )
 }
 export { PokemonPage }
-
-
