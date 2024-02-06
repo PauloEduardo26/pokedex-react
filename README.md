@@ -22,7 +22,11 @@ This project is a single-page application (SPA) that uses React.js, a recreation
 
 ### Main Page and Specificy Pokémon Page
 
+![](https://github.com/PauloEduardo26/Pokedex-React/blob/main/src/gifs/Anima%C3%A7%C3%A3o-menu.gif)
+
 ### Theme Toggler and Filter by Type
+
+![](https://github.com/PauloEduardo26/Pokedex-React/blob/main/src/gifs/Anima%C3%A7%C3%A3o-tema-filtro.gif)
  
 
 ## Run The Project 
@@ -49,7 +53,3 @@ Start the server
 ~~~bash  
 npm start
 ~~~  
-
-
-
-
